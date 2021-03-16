@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/prefer-default-export */
+
 async function createUser(event, context) {
   return {
     statusCode: 200,

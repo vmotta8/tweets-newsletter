@@ -2,6 +2,7 @@
 
 # package directories
 node_modules
+dist
 jspm_packages
 
 # Serverless directories

@@ -13,12 +13,12 @@ provider:
   region: eu-west-1
   
 functions:
-  createUser:
-    handler: src/handlers/createUser.handler
+  hello:
+    handler: dist/handlers/hello.handler
     events:
       - http:
           method: GET
-          path: /user/create
+          path: /hello
 
 custom:
   bundle:

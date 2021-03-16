@@ -17,7 +17,7 @@ functions:
     handler: src/handlers/createUser.handler
     events:
       - http:
-          method: POST
+          method: GET
           path: /user/create
 
 custom:

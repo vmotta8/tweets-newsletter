@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 
+import commonMiddleware from '../lib/middlewares/commonMiddleware';
+import { createUserService } from './services/createUserService';
+
 async function createUser(event, context) {
   return {
     statusCode: 200,
@@ -8,4 +11,4 @@ async function createUser(event, context) {
   };
 }
 
-export const handler = createUser;
+export const handler = commonMiddleware(createUser);

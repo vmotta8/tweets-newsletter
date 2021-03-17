@@ -8,6 +8,8 @@ UsersTable:
         AttributeType: S
       - AttributeName: email
         AttributeType: S
+      - AttributeName: status
+        AttributeType: S
     KeySchema:
       - AttributeName: id
         KeyType: HASH
@@ -15,6 +17,12 @@ UsersTable:
       - IndexName: Email
         KeySchema:
           - AttributeName: email
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: Status
+        KeySchema:
+          - AttributeName: status
             KeyType: HASH
         Projection:
           ProjectionType: ALL

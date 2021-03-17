@@ -14,7 +14,7 @@ export class SubscribeService {
   async execute (data: ISubscribeDTO): Promise<User> {
     const exist = await this.repository.findByEmail(data.email)
 
-    if (!exist) {
+    if (exist) {
       throw new createError.BadRequest('Email already exists.')
     }
     const user = new User(data)

@@ -1,4 +1,4 @@
-export class HelloService {
+export class SubscribeService {
   /*
   constructor(
     private repository: IRepository

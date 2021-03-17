@@ -14,11 +14,11 @@ provider:
   
 functions:
   hello:
-    handler: dist/handlers/hello.handler
+    handler: dist/handlers/subscribe.handler
     events:
       - http:
-          method: GET
-          path: /hello
+          method: POST
+          path: /subscribe
 
 custom:
   bundle:

@@ -11,6 +11,10 @@ provider:
   memorySize: 256
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
+
+resources:
+  Resources:
+    UsersTable: ${file(resources/UsersTable.yml):UsersTable}
   
 functions:
   hello:
@@ -21,5 +25,8 @@ functions:
           path: /subscribe
 
 custom:
+  AuctionsTable:
+    name: !Ref UsersTable
+    arn: !GetAtt UsersTable.Arn
   bundle:
     linting: false

@@ -1,7 +1,8 @@
 import { APIGatewayProxyResult } from 'aws-lambda'
 import { commonMiddleware } from '../lib/middlewares/commonMiddleware'
 import { SubscribeService } from './services/subscribeService'
-import createError from 'http-errors'
+import validator from '@middy/validator'
+import subscribeSchema from '../lib/schemas/subscribeSchema'
 
 /*
 const repository = new Repository()
@@ -12,16 +13,12 @@ const service = new Service(
 const service = new SubscribeService()
 
 async function subscribe (event: any, context: any): Promise<APIGatewayProxyResult> {
-  try {
-    const response = service.execute(event.body)
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response)
-    }
-  } catch (error) {
-    console.log(error)
-    throw new createError.InternalServerError(error)
+  const response = service.execute(event.body)
+  return {
+    statusCode: 200,
+    body: JSON.stringify(response)
   }
 }
 
 export const handler = commonMiddleware(subscribe)
+  .use(validator({ inputSchema: subscribeSchema }))

@@ -1,4 +1,5 @@
 import { IMailProvider, IMessage } from '../IMailProvider'
+import createError from 'http-errors'
 import AWS from 'aws-sdk'
 
 const sqs = new AWS.SQS()
@@ -12,6 +13,13 @@ export class SESMailProvider implements IMailProvider {
         recipient: message.recipient,
         body: message.body
       })
-    }).promise()
+    }, function (err, data) {
+      if (err) {
+        console.log('Error', err)
+        throw new createError.NotAcceptable('Invalid queue url.')
+      } else {
+        console.log('Success', data.MessageId)
+      }
+    })
   }
 }

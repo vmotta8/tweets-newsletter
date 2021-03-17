@@ -1,9 +1,10 @@
 import { SubscribeService } from './subscribeService'
 
-describe('hello service', () => {
-  const helloService = new SubscribeService()
+describe('subscribe service', () => {
+  const service = new SubscribeService()
   it('should return hello string', () => {
-    const helloString = helloService.execute()
-    expect(helloString).toBe('Hello!!')
+    const data = 'data'
+    const response = service.execute(data)
+    expect(response).toBe('data')
   })
 })

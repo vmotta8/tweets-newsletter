@@ -13,10 +13,10 @@ const service = new SubscribeService()
 
 async function subscribe (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
   try {
-    const hello = service.execute()
+    const response = service.execute(event.body)
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: hello })
+      body: JSON.stringify(response)
     }
   } catch (error) {
     console.log(error)

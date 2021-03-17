@@ -4,7 +4,7 @@ export class SubscribeService {
     private repository: IRepository
   ) {}
   */
-  execute () {
-    return 'Hello!!'
+  execute (data: any) {
+    return data
   }
 }

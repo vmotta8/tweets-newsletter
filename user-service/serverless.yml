@@ -24,8 +24,8 @@ resources:
     UsersTable: ${file(resources/UsersTable.yml):UsersTable}
   
 functions:
-  hello:
-    handler: dist/handlers/subscribe.handler
+  subscribe:
+    handler: dist/src/handlers/subscribe.handler
     events:
       - http:
           method: POST

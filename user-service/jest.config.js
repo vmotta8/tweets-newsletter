@@ -6,5 +6,5 @@ module.exports = {
   testEnvironment: 'node',
   clearMocks: true,
   preset: 'ts-jest',
-  testMatch: ['<rootDir>/src/**/*.test.ts', '<rootDir>/test/**/*.test.ts']
+  testMatch: ['<rootDir>/test/**/*.test.ts']
 }

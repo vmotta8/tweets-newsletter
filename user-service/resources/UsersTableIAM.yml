@@ -1,0 +1,6 @@
+UsersTableIAM:
+  Effect: Allow
+  Action:
+    - dynamodb:PutItem
+  Resource:
+    - ${self:custom.UsersTable.arn}

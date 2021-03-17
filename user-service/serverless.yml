@@ -11,6 +11,12 @@ provider:
   memorySize: 256
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
+  environment:
+    USERS_TABLE_NAME: ${self:custom.UsersTable.name}
+    MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
+  iamRoleStatements:
+    - ${file(resources/UsersTableIAM.yml):UsersTableIAM}
+    - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
 
 resources:
   Resources:
@@ -25,8 +31,11 @@ functions:
           path: /subscribe
 
 custom:
-  AuctionsTable:
+  UsersTable:
     name: !Ref UsersTable
     arn: !GetAtt UsersTable.Arn
+  MailQueue:
+    arn: ${cf:mail-service-${self:provider.stage}.MailQueueArn}
+    url: ${cf:mail-service-${self:provider.stage}.MailQueueUrl}
   bundle:
     linting: false

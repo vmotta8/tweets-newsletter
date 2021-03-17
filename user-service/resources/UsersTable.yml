@@ -6,6 +6,15 @@ UsersTable:
     AttributeDefinitions:
       - AttributeName: id
         AttributeType: S
+      - AttributeName: email
+        AttributeType: S
     KeySchema:
       - AttributeName: id
         KeyType: HASH
+    GlobalSecondaryIndexes:
+      - IndexName: Email
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL

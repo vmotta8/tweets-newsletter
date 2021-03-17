@@ -11,7 +11,7 @@ export class DynamoRepository implements IRepository {
     const status = 'ACTIVE'
 
     try {
-      const user = await dynamodb.query({
+      const users = await dynamodb.query({
         TableName: process.env.USERS_TABLE_NAME || '',
         IndexName: 'Status',
         KeyConditionExpression: '#status = :status',
@@ -23,11 +23,12 @@ export class DynamoRepository implements IRepository {
         }
       }).promise()
 
-      if (!user.Items) {
-        return false
+      if (!users.Items) {
+        console.log(users)
+        throw new createError.BadRequest('Error on finding users.')
       }
 
-      return user.Items
+      return users.Items
     } catch (err) {
       console.log('Error', err)
       throw new createError.InternalServerError(err)

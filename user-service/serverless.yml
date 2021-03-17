@@ -14,6 +14,7 @@ provider:
   environment:
     USERS_TABLE_NAME: ${self:custom.UsersTable.name}
     MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
+    SEND_TWEETS_URL: ${self:custom.SendTweets.url}
   iamRoleStatements:
     - ${file(resources/UsersTableIAM.yml):UsersTableIAM}
     - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
@@ -31,6 +32,8 @@ functions:
           path: /subscribe
 
 custom:
+  SendTweets:
+    url: ${file(env.yml):SendTweets.url}
   UsersTable:
     name: !Ref UsersTable
     arn: !GetAtt UsersTable.Arn

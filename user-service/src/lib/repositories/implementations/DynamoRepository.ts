@@ -18,7 +18,7 @@ export class DynamoRepository implements IRepository {
         }
       }).promise()
 
-      if (!user.Items) {
+      if (!user.Items || user.Items.length === 0) {
         return false
       }
 

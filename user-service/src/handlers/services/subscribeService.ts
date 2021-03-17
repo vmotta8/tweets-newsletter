@@ -1,24 +1,23 @@
-import { IMailProvider } from 'src/lib/providers/IMailProvider'
+import { IMailProvider } from '../../lib/providers/IMailProvider'
 import { User } from '../../entities/User'
 import { ISubscribeDTO } from './dtos/ISubscribeDTO'
 import { generateWelcomeTemplate } from '../../lib/providers/templates/welcome'
-import createError from 'http-errors'
+import { IRepository } from '../../lib/repositories/IRepository'
 
 export class SubscribeService {
   constructor (
-    private mail: IMailProvider
+    private mail: IMailProvider,
+    private repository: IRepository
   ) {}
 
   execute (data: ISubscribeDTO): User {
     const user = new User(data)
 
-    if (!process.env.MAIL_QUEUE_URL) {
-      throw new createError.NotAcceptable('Invalid queue url.')
-    }
+    this.repository.save(user)
 
     const template = generateWelcomeTemplate()
     const message = {
-      queueURL: process.env.MAIL_QUEUE_URL,
+      queueURL: process.env.MAIL_QUEUE_URL || '',
       subject: template.subject,
       recipient: user.email,
       body: template.html

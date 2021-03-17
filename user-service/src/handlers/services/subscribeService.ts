@@ -15,6 +15,7 @@ export class SubscribeService {
     const exist = await this.repository.findByEmail(data.email)
 
     if (exist) {
+      console.log(exist)
       throw new createError.BadRequest('Email already exists.')
     }
     const user = new User(data)

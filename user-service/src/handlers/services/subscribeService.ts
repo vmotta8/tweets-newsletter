@@ -3,6 +3,7 @@ import { User } from '../../entities/User'
 import { ISubscribeDTO } from './dtos/ISubscribeDTO'
 import { generateWelcomeTemplate } from '../../lib/providers/templates/welcome'
 import { IRepository } from '../../lib/repositories/IRepository'
+import createError from 'http-errors'
 
 export class SubscribeService {
   constructor (
@@ -10,7 +11,12 @@ export class SubscribeService {
     private repository: IRepository
   ) {}
 
-  execute (data: ISubscribeDTO): User {
+  async execute (data: ISubscribeDTO): Promise<User> {
+    const exist = await this.repository.findByEmail(data.email)
+
+    if (!exist) {
+      throw new createError.BadRequest('Email already exists.')
+    }
     const user = new User(data)
 
     this.repository.save(user)

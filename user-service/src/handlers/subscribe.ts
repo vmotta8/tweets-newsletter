@@ -12,7 +12,7 @@ const service = new SubscribeService(
 )
 
 async function subscribe (event: any, context: any): Promise<APIGatewayProxyResult> {
-  const response = service.execute(event.body)
+  const response = await service.execute(event.body)
   return {
     statusCode: 200,
     body: JSON.stringify(response)

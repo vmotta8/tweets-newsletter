@@ -30,6 +30,12 @@ functions:
       - http:
           method: POST
           path: /subscribe
+  unsubscribe:
+    handler: dist/src/handlers/unsubscribe.handler
+    events:
+      - http:
+          method: PATCH
+          path: /unsubscribe
 
 custom:
   SendTweets:

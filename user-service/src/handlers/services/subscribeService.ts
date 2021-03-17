@@ -1,3 +1,4 @@
+import { User } from '../../entities/User'
 import { ISubscribeDTO } from './dtos/ISubscribeDTO'
 
 export class SubscribeService {
@@ -6,7 +7,8 @@ export class SubscribeService {
     private repository: IRepository
   ) {}
   */
-  execute (data: ISubscribeDTO) {
-    return data
+  execute (data: ISubscribeDTO): User {
+    const user = new User(data)
+    return user
   }
 }

@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
+import { APIGatewayProxyResult } from 'aws-lambda'
 import { commonMiddleware } from '../lib/middlewares/commonMiddleware'
 import { SubscribeService } from './services/subscribeService'
 import createError from 'http-errors'
@@ -11,7 +11,7 @@ const service = new Service(
 */
 const service = new SubscribeService()
 
-async function subscribe (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
+async function subscribe (event: any, context: any): Promise<APIGatewayProxyResult> {
   try {
     const response = service.execute(event.body)
     return {

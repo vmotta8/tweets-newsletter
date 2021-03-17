@@ -1,4 +1,4 @@
-import { uuidHelper } from './uuidHelper'
+import { uuidHelper } from '../../src/helpers/uuidHelper'
 
 describe('jwt helper', () => {
   it('should return a string and right length', () => {

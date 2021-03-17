@@ -11,12 +11,25 @@ const service = new SubscribeService(
 )
 
 describe('subscribe service', () => {
-  it('should return email', () => {
+  it('should return the right email', () => {
     process.env.MAIL_QUEUE_URL = 'https://any.com'
     const data = {
       email: 'email@gmail.com'
     }
     const response = service.execute(data)
     expect(response.email).toBe('email@gmail.com')
+  })
+
+  it('should return an invalid url error', () => {
+    process.env.MAIL_QUEUE_URL = ''
+    const data = {
+      email: 'email@gmail.com'
+    }
+    try {
+      service.execute(data)
+      expect(true).toBe(false)
+    } catch (error) {
+      expect(error.message).toBe('Invalid queue url.')
+    }
   })
 })

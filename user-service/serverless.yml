@@ -36,6 +36,12 @@ functions:
       - http:
           method: GET # to access the route through the browser
           path: /unsubscribe/{email}
+  active:
+    handler: dist/src/handlers/active.handler
+    events:
+      - http:
+          method: GET
+          path: /active
 
 custom:
   SendTweets:

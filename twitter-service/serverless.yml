@@ -12,6 +12,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: eu-west-1
   environment:
+    MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
     AUTH_URL: ${self:custom.Auth.url}
     AUTH_ID: ${self:custom.Auth.id}
     AUTH_USERNAME: ${self:custom.Auth.username}
@@ -20,6 +21,8 @@ provider:
     TWITTER_CONSUMER_SECRET: ${self:custom.Twitter.consumerSecret}
     TWITTER_ACCESS_TOKEN_KEY: ${self:custom.Twitter.tokenKey}
     TWITTER_ACCESS_TOKEN_SECRET: ${self:custom.Twitter.tokenSecret}
+  iamRoleStatements:
+    - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
       
 functions:
   send:
@@ -40,5 +43,8 @@ custom:
     id: ${file(env.yml):Auth.id}
     username: ${file(env.yml):Auth.username}
     password: ${file(env.yml):Auth.password}
+  MailQueue:
+    arn: ${cf:mail-service-${self:provider.stage}.MailQueueArn}
+    url: ${cf:mail-service-${self:provider.stage}.MailQueueUrl}
   bundle:
     linting: false

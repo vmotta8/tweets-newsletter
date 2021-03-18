@@ -43,6 +43,7 @@
     "@middy/http-json-body-parser": "^1.5.2",
     "@middy/validator": "^1.5.2",
     "aws-sdk": "^2.639.0",
+    "axios": "^0.21.1",
     "http-errors": "^1.8.0",
     "uuid": "^8.3.2"
   }

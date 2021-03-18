@@ -1,5 +1,6 @@
 .DS_Store
 env.yml
+.env
 
 # package directories
 node_modules

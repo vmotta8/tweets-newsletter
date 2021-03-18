@@ -15,6 +15,10 @@ provider:
     USERS_TABLE_NAME: ${self:custom.UsersTable.name}
     MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
     SEND_TWEETS_URL: ${self:custom.SendTweets.url}
+    AUTH_URL: ${self:custom.Auth.url}
+    AUTH_ID: ${self:custom.Auth.id}
+    AUTH_USERNAME: ${self:custom.Auth.username}
+    AUTH_PASSWORD: ${self:custom.Auth.password}
   iamRoleStatements:
     - ${file(resources/UsersTableIAM.yml):UsersTableIAM}
     - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
@@ -42,8 +46,16 @@ functions:
       - http:
           method: GET
           path: /active
+          authorizer: ${self:custom.Authorizer.url}
 
 custom:
+  Authorizer:
+    url: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
+  Auth:
+    url: ${file(env.yml):Auth.url}
+    id: ${file(env.yml):Auth.id}
+    username: ${file(env.yml):Auth.username}
+    password: ${file(env.yml):Auth.password}
   SendTweets:
     url: ${file(env.yml):SendTweets.url}
   UsersTable:

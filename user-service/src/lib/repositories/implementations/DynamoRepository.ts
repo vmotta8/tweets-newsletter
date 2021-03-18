@@ -2,12 +2,11 @@ import { User } from '../../../entities/User'
 import { IRepository } from '../IRepository'
 import createError from 'http-errors'
 import AWS from 'aws-sdk'
-import { ItemList } from 'aws-sdk/clients/dynamodb'
 
 const dynamodb = new AWS.DynamoDB.DocumentClient()
 
 export class DynamoRepository implements IRepository {
-  async findAll (): Promise<boolean | ItemList> {
+  async findAll (): Promise<any> {
     const status = 'ACTIVE'
 
     try {
@@ -35,7 +34,7 @@ export class DynamoRepository implements IRepository {
     }
   }
 
-  async findByEmail (email: string): Promise<boolean | ItemList> {
+  async findByEmail (email: string): Promise<false | any> {
     try {
       const user = await dynamodb.query({
         TableName: process.env.USERS_TABLE_NAME || '',

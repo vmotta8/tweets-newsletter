@@ -50,7 +50,7 @@ export class SendService {
     allTweets.sort(
       (a, b) => parseFloat(b.relevanceIndex) - parseFloat(a.relevanceIndex)
     )
-    allTweets = allTweets.slice(0, 30)
+    allTweets = allTweets.slice(0, 10)
 
     const html = HtmlHelper.generate(allTweets, data.email)
 

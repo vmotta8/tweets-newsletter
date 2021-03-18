@@ -19,7 +19,7 @@ export class SubscribeService {
 
       this.repository.save(newUser)
 
-      const template = generateWelcomeTemplate()
+      const template = generateWelcomeTemplate(newUser.email)
       const message = {
         queueURL: process.env.MAIL_QUEUE_URL || '',
         subject: template.subject,

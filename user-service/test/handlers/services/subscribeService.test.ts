@@ -9,7 +9,7 @@ const service = new SubscribeService(
 
 describe('subscribe service', () => {
   process.env.MAIL_QUEUE_URL = 'https://any.com'
-  it('should return the right email', async () => {
+  it('should return welcome message', async () => {
     const data = {
       email: 'email@email.com'
     }

@@ -31,8 +31,11 @@ functions:
       - http:
           method: POST
           path: /send/{email}
+          authorizer: ${self:custom.Authorizer.url}
 
 custom:
+  Authorizer:
+    url: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
   Twitter:
     consumerKey: ${file(env.yml):Twitter.consumerKey}
     consumerSecret: ${file(env.yml):Twitter.consumerSecret}

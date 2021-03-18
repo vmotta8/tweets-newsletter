@@ -21,7 +21,7 @@ export class SendService {
   async execute (data: ISendDTO) {
     let allTweets: any[] = []
 
-    const users = ['wired', 'verge']
+    const users = ['thenextweb', 'engadget', 'techcrunch', 'techreview']
 
     for (const user of users) {
       try {

@@ -62,10 +62,6 @@ export const TweetsHelper = {
     return relevanceIndex
   },
 
-  extractTweetUrl (tweet: any): string {
-    return `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`
-  },
-
   usefulTweets (
     tweets: any,
     engagement: number,
@@ -76,7 +72,6 @@ export const TweetsHelper = {
       const usefulTweet = {
         name: tweet.user.name,
         relevanceIndex: this.generateRelevanceIndex(tweet, engagement, amount),
-        tweetUrl: this.extractTweetUrl(tweet),
         text: tweet.full_text
       }
 

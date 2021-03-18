@@ -20,7 +20,10 @@ export class DynamoRepositoryInMemory implements IRepository {
   }
 
   async findAll (): Promise<any> {
-    return this.db
+    const users = this.db.filter((user) => {
+      return user.status === 'ACTIVE'
+    })
+    return users
   }
 
   async findByEmail (email: string): Promise<false | any> {

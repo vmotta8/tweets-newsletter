@@ -8,7 +8,6 @@ const service = new UnsubscribeService(
 )
 
 async function unsubscribe (event: any, context: any): Promise<APIGatewayProxyResult> {
-  console.log(event.pathParameters)
   const response = await service.execute(event.pathParameters)
   return {
     statusCode: 200,

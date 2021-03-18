@@ -11,29 +11,35 @@ export class SubscribeService {
     private repository: IRepository
   ) {}
 
-  async execute (data: ISubscribeDTO): Promise<User> {
-    const exist = await this.repository.findByEmail(data.email)
+  async execute (data: ISubscribeDTO): Promise<any> {
+    const user = await this.repository.findByEmail(data.email)
 
-    if (exist) {
-      console.log(exist)
-      throw new createError.BadRequest('Email already exists.')
+    if (!user) {
+      const newUser = new User(data)
+
+      this.repository.save(newUser)
+
+      const template = generateWelcomeTemplate()
+      const message = {
+        queueURL: process.env.MAIL_QUEUE_URL || '',
+        subject: template.subject,
+        recipient: newUser.email,
+        body: template.html
+      }
+
+      this.mail.sendMessage(message)
+
+      // send tweets to new user - process.env.SEND_TWEETS_URL
+
+      return { message: 'You have been subscribed. Be welcome!!' }
     }
-    const user = new User(data)
 
-    this.repository.save(user)
-
-    const template = generateWelcomeTemplate()
-    const message = {
-      queueURL: process.env.MAIL_QUEUE_URL || '',
-      subject: template.subject,
-      recipient: user.email,
-      body: template.html
+    if (user.status !== 'ACTIVE') {
+      await this.repository.changeStatus(user.id, 'ACTIVE')
+      return { message: 'You have been subscribed. Welcome back!!' }
     }
 
-    this.mail.sendMessage(message)
-
-    // send tweets to new user - process.env.SEND_TWEETS_URL
-
-    return user
+    console.log(user)
+    throw new createError.BadRequest('You are already subscribed, enjoy the news !!')
   }
 }

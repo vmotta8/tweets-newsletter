@@ -13,6 +13,7 @@ provider:
   region: eu-west-1
   environment:
     MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
+    GET_USERS_URL: ${self:custom.Users.url}
     AUTH_URL: ${self:custom.Auth.url}
     AUTH_ID: ${self:custom.Auth.id}
     AUTH_USERNAME: ${self:custom.Auth.username}
@@ -32,10 +33,16 @@ functions:
           method: POST
           path: /send/{email}
           authorizer: ${self:custom.Authorizer.url}
+  sendAll:
+    handler: dist/src/handlers/sendAll.handler
+    events:
+      - schedule: rate(960 minutes)
 
 custom:
   Authorizer:
     url: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
+  Users:
+    url: ${file(env.yml):Users.url}
   Twitter:
     consumerKey: ${file(env.yml):Twitter.consumerKey}
     consumerSecret: ${file(env.yml):Twitter.consumerSecret}

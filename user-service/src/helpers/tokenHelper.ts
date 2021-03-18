@@ -1,9 +1,9 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import qs from 'querystring'
 import createError from 'http-errors'
 
 export const tokenHelper = {
-  async generate (): Promise<AxiosResponse<any> | false> {
+  async generate (): Promise<any | false> {
     const url = process.env.AUTH_URL
     const id = process.env.AUTH_ID
     const username = process.env.AUTH_USERNAME

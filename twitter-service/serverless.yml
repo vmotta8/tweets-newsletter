@@ -10,6 +10,12 @@ provider:
   runtime: nodejs12.x
   memorySize: 256
   stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  environment:
+    AUTH_URL: ${self:custom.Auth.url}
+    AUTH_ID: ${self:custom.Auth.id}
+    AUTH_USERNAME: ${self:custom.Auth.username}
+    AUTH_PASSWORD: ${self:custom.Auth.password}
   
 functions:
   hello:
@@ -20,5 +26,10 @@ functions:
           path: /hello
 
 custom:
+  Auth:
+    url: ${file(env.yml):Auth.url}
+    id: ${file(env.yml):Auth.id}
+    username: ${file(env.yml):Auth.username}
+    password: ${file(env.yml):Auth.password}
   bundle:
     linting: false

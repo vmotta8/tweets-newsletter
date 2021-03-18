@@ -15,7 +15,11 @@ export class DynamoRepositoryInMemory implements IRepository {
     this.db = []
   }
 
-  async findByEmail (email: string): Promise<boolean> {
+  async findAll (): Promise<any> {
+    return this.db
+  }
+
+  async findByEmail (email: string): Promise<false | any> {
     const result = this.db.find(user => user.email === email)
     if (result) {
       return true

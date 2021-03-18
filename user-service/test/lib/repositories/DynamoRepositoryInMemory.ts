@@ -8,6 +8,10 @@ export class DynamoRepositoryInMemory implements IRepository {
       id: '123456',
       email: 'inactive@email.com',
       status: 'INACTIVE'
+    }, {
+      id: '12345678',
+      email: 'active@email.com',
+      status: 'ACTIVE'
     }]
   }
 

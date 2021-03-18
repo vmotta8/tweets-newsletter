@@ -1,6 +1,6 @@
 import { uuidHelper } from '../../src/helpers/uuidHelper'
 
-describe('jwt helper', () => {
+describe('uuid helper', () => {
   it('should return a string and right length', () => {
     const id = uuidHelper.create()
     const split = id.split('-')

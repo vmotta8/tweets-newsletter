@@ -3,7 +3,29 @@ import { User } from '../../entities/User'
 import { ISubscribeDTO } from './dtos/ISubscribeDTO'
 import { generateWelcomeTemplate } from '../../lib/providers/templates/welcome'
 import { IRepository } from '../../lib/repositories/IRepository'
+import axios from 'axios'
 import createError from 'http-errors'
+import { tokenHelper } from '../../helpers/tokenHelper'
+
+async function sendTweets (email: string): Promise<void> {
+  try {
+    const sendTweetsUrl = process.env.SEND_TWEETS_URL || ''
+    const data = await tokenHelper.generate()
+
+    const headers = {
+      Authorization: `Bearer ${data.id_token}`
+    }
+
+    await axios.post(`${sendTweetsUrl}/${email}`,
+      {},
+      {
+        headers: headers
+      })
+  } catch (err) {
+    console.log(err)
+    throw new createError.Unauthorized('Error on sending tweets.')
+  }
+}
 
 export class SubscribeService {
   constructor (
@@ -15,23 +37,28 @@ export class SubscribeService {
     const user = await this.repository.findByEmail(data.email)
 
     if (!user) {
-      const newUser = new User(data)
+      try {
+        const newUser = new User(data)
 
-      this.repository.save(newUser)
+        this.repository.save(newUser)
 
-      const template = generateWelcomeTemplate(newUser.email)
-      const message = {
-        queueURL: process.env.MAIL_QUEUE_URL || '',
-        subject: template.subject,
-        recipient: newUser.email,
-        body: template.html
+        const template = generateWelcomeTemplate(newUser.email)
+        const message = {
+          queueURL: process.env.MAIL_QUEUE_URL || '',
+          subject: template.subject,
+          recipient: newUser.email,
+          body: template.html
+        }
+
+        this.mail.sendMessage(message)
+
+        sendTweets(data.email)
+
+        return { message: 'You have been subscribed. Be welcome!!' }
+      } catch (err) {
+        console.log(err)
+        throw new createError.InternalServerError('Error on subscribe.')
       }
-
-      this.mail.sendMessage(message)
-
-      // send tweets to new user - process.env.SEND_TWEETS_URL
-
-      return { message: 'You have been subscribed. Be welcome!!' }
     }
 
     if (user.status !== 'ACTIVE') {

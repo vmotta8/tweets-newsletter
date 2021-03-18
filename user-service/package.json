@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --setupFiles dotenv/config",
     "test:unit": "npm test -- --watch -c jest-unit.config.js"
   },
   "keywords": [],

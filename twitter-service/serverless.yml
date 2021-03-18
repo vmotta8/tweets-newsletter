@@ -16,16 +16,25 @@ provider:
     AUTH_ID: ${self:custom.Auth.id}
     AUTH_USERNAME: ${self:custom.Auth.username}
     AUTH_PASSWORD: ${self:custom.Auth.password}
-  
+    TWITTER_CONSUMER_KEY: ${self:custom.Twitter.consumerKey}
+    TWITTER_CONSUMER_SECRET: ${self:custom.Twitter.consumerSecret}
+    TWITTER_ACCESS_TOKEN_KEY: ${self:custom.Twitter.tokenKey}
+    TWITTER_ACCESS_TOKEN_SECRET: ${self:custom.Twitter.tokenSecret}
+      
 functions:
-  hello:
-    handler: dist/handlers/hello.handler
+  send:
+    handler: dist/src/handlers/send.handler
     events:
       - http:
-          method: GET
-          path: /hello
+          method: POST
+          path: /send/{email}
 
 custom:
+  Twitter:
+    consumerKey: ${file(env.yml):Twitter.consumerKey}
+    consumerSecret: ${file(env.yml):Twitter.consumerSecret}
+    tokenKey: ${file(env.yml):Twitter.tokenKey}
+    tokenSecret: ${file(env.yml):Twitter.tokenSecret}
   Auth:
     url: ${file(env.yml):Auth.url}
     id: ${file(env.yml):Auth.id}

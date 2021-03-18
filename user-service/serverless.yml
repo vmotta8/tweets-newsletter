@@ -34,8 +34,8 @@ functions:
     handler: dist/src/handlers/unsubscribe.handler
     events:
       - http:
-          method: PATCH
-          path: /unsubscribe
+          method: GET # to access the route through the browser
+          path: /unsubscribe/{email}
 
 custom:
   SendTweets:

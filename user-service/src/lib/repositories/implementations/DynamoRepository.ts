@@ -6,6 +6,28 @@ import AWS from 'aws-sdk'
 const dynamodb = new AWS.DynamoDB.DocumentClient()
 
 export class DynamoRepository implements IRepository {
+  async changeStatus (id: string, status: string): Promise<any> {
+    try {
+      const result = await dynamodb.update({
+        TableName: process.env.USERS_TABLE_NAME || '',
+        Key: { id },
+        UpdateExpression: 'set #status = :status',
+        ExpressionAttributeValues: {
+          ':status': status
+        },
+        ExpressionAttributeNames: {
+          '#status': 'status'
+        },
+        ReturnValues: 'ALL_NEW'
+      }).promise()
+
+      return result.Attributes
+    } catch (err) {
+      console.log('Error', err)
+      throw new createError.InternalServerError(err)
+    }
+  }
+
   async findAll (): Promise<any> {
     const status = 'ACTIVE'
 
@@ -49,7 +71,7 @@ export class DynamoRepository implements IRepository {
         return false
       }
 
-      return user.Items
+      return user.Items[0]
     } catch (err) {
       console.log('Error', err)
       throw new createError.InternalServerError(err)

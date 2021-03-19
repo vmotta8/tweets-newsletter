@@ -34,6 +34,7 @@ export class SubscribeService {
   ) {}
 
   async execute (data: ISubscribeDTO): Promise<any> {
+    data.email = (data.email).toLowerCase()
     const user = await this.repository.findByEmail(data.email)
 
     if (!user) {

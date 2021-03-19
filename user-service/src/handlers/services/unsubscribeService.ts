@@ -8,6 +8,7 @@ export class UnsubscribeService {
   ) {}
 
   async execute (data: IUnsubscribeDTO): Promise<any> {
+    data.email = (data.email).toLowerCase()
     const user = await this.repository.findByEmail(data.email)
     if (!user) {
       throw new createError.BadRequest('Email not found.')

@@ -32,8 +32,8 @@ functions:
     handler: dist/src/handlers/subscribe.handler
     events:
       - http:
-          method: POST
-          path: /subscribe
+          method: GET # to access the route through the browser
+          path: /subscribe/{email}
   unsubscribe:
     handler: dist/src/handlers/unsubscribe.handler
     events:

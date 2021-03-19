@@ -1,7 +1,7 @@
 import { IMailProvider } from '../../lib/providers/IMailProvider'
 import { User } from '../../entities/User'
 import { ISubscribeDTO } from './dtos/ISubscribeDTO'
-import { generateWelcomeTemplate } from '../../lib/providers/templates/welcome'
+// import { generateWelcomeTemplate } from '../../lib/providers/templates/welcome'
 import { IRepository } from '../../lib/repositories/IRepository'
 import axios from 'axios'
 import createError from 'http-errors'
@@ -42,15 +42,15 @@ export class SubscribeService {
 
         this.repository.save(newUser)
 
-        const template = generateWelcomeTemplate(newUser.email)
-        const message = {
-          queueURL: process.env.MAIL_QUEUE_URL || '',
-          subject: template.subject,
-          recipient: newUser.email,
-          body: template.html
-        }
+        // const template = generateWelcomeTemplate(newUser.email)
+        // const message = {
+        //   queueURL: process.env.MAIL_QUEUE_URL || '',
+        //   subject: template.subject,
+        //   recipient: newUser.email,
+        //   body: template.html
+        // }
 
-        this.mail.sendMessage(message)
+        // this.mail.sendMessage(message)
 
         sendTweets(data.email)
 

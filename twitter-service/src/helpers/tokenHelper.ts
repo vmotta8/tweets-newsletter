@@ -26,12 +26,16 @@ export const tokenHelper = {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    const response = await axios.post(url,
-      qs.stringify(data),
-      {
-        headers: headers
-      })
-
-    return response.data
+    try {
+      const response = await axios.post(url,
+        qs.stringify(data),
+        {
+          headers: headers
+        })
+      return response.data
+    } catch (err) {
+      console.log(err)
+      throw new createError.Unauthorized('Wrong credentials')
+    }
   }
 }

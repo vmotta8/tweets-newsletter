@@ -32,7 +32,7 @@ export class SendAllService {
     private mail: IMailProvider
   ) {}
 
-  async execute (users: string[]): Promise<void> {
+  async execute (users: string[]): Promise<any> {
     let allTweets: any[] = []
     const subscribers = await getUsers()
 
@@ -60,5 +60,7 @@ export class SendAllService {
 
       this.mail.sendMessage(message)
     }
+
+    return { message: 'All news was sent successfully!' }
   }
 }

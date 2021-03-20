@@ -9,10 +9,10 @@ const service = new SendAllService(
 )
 
 async function sendAll (event: any, context: any): Promise<APIGatewayProxyResult> {
-  service.execute(users)
+  const response = await service.execute(users)
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: 'All news was sent successfully!' })
+    body: JSON.stringify(response)
   }
 }
 

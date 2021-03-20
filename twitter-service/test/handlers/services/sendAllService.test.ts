@@ -7,7 +7,7 @@ const service = new SendAllService(
 
 describe('send all service', () => {
   it('should return message', async () => {
-    const response = await service.execute()
+    const response = await service.execute(['vmotta8'])
     expect(response).toEqual(undefined)
   })
 })

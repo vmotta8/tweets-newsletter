@@ -32,11 +32,9 @@ export class SendAllService {
     private mail: IMailProvider
   ) {}
 
-  async execute (): Promise<void> {
+  async execute (users: string[]): Promise<void> {
     let allTweets: any[] = []
     const subscribers = await getUsers()
-
-    const users = ['thenextweb', 'engadget', 'techcrunch', 'techreview']
 
     for (const user of users) {
       try {

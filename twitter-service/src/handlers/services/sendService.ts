@@ -10,10 +10,8 @@ export class SendService {
     private mail: IMailProvider
   ) {}
 
-  async execute (data: ISendDTO) {
+  async execute (data: ISendDTO, users: string[]) {
     let allTweets: any[] = []
-
-    const users = ['thenextweb', 'engadget', 'techcrunch', 'techreview']
 
     for (const user of users) {
       try {

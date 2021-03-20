@@ -7,7 +7,7 @@ const service = new SendService(
 
 describe('send service', () => {
   it('should return tweets', async () => {
-    const response = await service.execute({ email: 'viniciusmotta8@gmail.com' })
+    const response = await service.execute({ email: 'viniciusmotta8@gmail.com' }, ['vmotta8'])
     expect(response.message).toEqual('News sent successfully!')
   })
 })

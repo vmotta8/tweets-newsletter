@@ -40,16 +40,15 @@ export class SendAllService {
       try {
         const tweets = await TweetsHelper.collectTweets(user)
         allTweets = allTweets.concat(tweets)
+        allTweets = TweetsHelper.sortTweets(allTweets)
       } catch (err) {
         console.log(err)
         throw new createError.Unauthorized('Unauthorized, check twitter credentials.')
       }
     }
 
-    const sortedTweets = TweetsHelper.sortTweets(allTweets)
-
     for (const subscriber of subscribers) {
-      const html = HtmlHelper.generate(sortedTweets, subscriber.email)
+      const html = HtmlHelper.generate(allTweets, subscriber.email)
 
       const message = {
         queueURL: process.env.MAIL_QUEUE_URL || '',

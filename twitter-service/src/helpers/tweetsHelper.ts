@@ -15,10 +15,8 @@ export const TweetsHelper = {
       const mentions = text.slice(0, 4)
       const threads = text.slice(0, 1)
 
-      if (mentions !== 'RT @') {
-        if (threads !== '@') {
-          return tweet
-        }
+      if (mentions !== 'RT @' && threads !== '@') {
+        return tweet
       }
     })
 
@@ -27,57 +25,71 @@ export const TweetsHelper = {
 
   dateFilter (tweets: any): any {
     tweets = tweets.filter((tweet: any): any => {
-      const dateNow = new Date().getDate()
-      const dateYesterday = dateNow - 1
-      const dateTomorrow = dateNow + 1
-
+      const date = new Date().getDate() - 1
       const tweetDate = parseInt(tweet.created_at.split(' ')[2])
 
       if (
-        tweetDate === dateNow ||
-        tweetDate === dateYesterday ||
-        tweetDate === dateTomorrow
+        tweetDate === date
       ) {
         return tweet
       }
+
+      // ["Mon Mar 22 13:35:18 +0000 2021", "Mon Mar 22 13:33:16 +0000 2021", "Sat Mar 21 17:10:40 +0000 2021", "Mon Mar 22 12:51:10 +0000 2021"]
+      // [2021-03-22T14:04:02.930Z, 2021-03-22T14:04:02.930Z, 2021-03-22T14:04:02.930Z, 2021-03-22T14:04:02.930Z]
     })
 
     return tweets
   },
 
   sumTweets (tweets: any): number {
-    return Object.keys(tweets).length
+    return tweets.length
   },
 
-  sumEngagement (tweets: any): number {
+  engagementAverage (tweets: any): number {
+    const amount = tweets.length
     let usersEngagement = 0
     for (const tweet of tweets) {
       usersEngagement += tweet.retweet_count + tweet.favorite_count
     }
 
-    return usersEngagement
+    return usersEngagement / amount
   },
 
   generateRelevanceIndex (
     tweet: any,
-    usersEngagement: number,
-    usersAmountTweets: number
+    engagementAverage: number
   ): any {
-    const userAverageEngagement = usersEngagement / usersAmountTweets
     const tweetEngagement = tweet.retweet_count + tweet.favorite_count
 
-    const relevanceIndex = tweetEngagement / userAverageEngagement
+    const relevanceIndex = tweetEngagement / engagementAverage
 
     return relevanceIndex
   },
 
   extractText (text: string): string {
-    const aa = text.replace(/(https?|ftp):\/\/[.[a-zA-Z0-9/-]+/g, '')
-    return aa
+    let string = text.replace(/(https?|ftp):\/\/[.[a-zA-Z0-9/-]+/g, '')
+    string = string.replace(/\s\s+/g, ' ')
+    return string
   },
 
   extractTweetUrl (tweet: any): string {
     return `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`
+  },
+
+  usefulTweets (tweets: any, engagement: number): any {
+    const allUsefulTweets = []
+    for (const tweet of tweets) {
+      const usefulTweet = {
+        name: tweet.user.name,
+        relevanceIndex: this.generateRelevanceIndex(tweet, engagement),
+        tweetUrl: this.extractTweetUrl(tweet),
+        text: this.extractText(tweet.full_text)
+      }
+
+      allUsefulTweets.push(usefulTweet)
+    }
+
+    return allUsefulTweets
   },
 
   async collectTweets (user: string): Promise<any> {
@@ -90,11 +102,10 @@ export const TweetsHelper = {
     })
 
     tweets = this.rtFilter(tweets)
-    const amount = this.sumTweets(tweets)
-    const engagement = this.sumEngagement(tweets)
+    const engagement = this.engagementAverage(tweets)
     tweets = this.dateFilter(tweets)
 
-    tweets = this.usefulTweets(tweets, engagement, amount)
+    tweets = this.usefulTweets(tweets, engagement)
 
     return tweets
   },
@@ -106,25 +117,5 @@ export const TweetsHelper = {
     formatedTweets = formatedTweets.slice(0, 10)
 
     return formatedTweets
-  },
-
-  usefulTweets (
-    tweets: any,
-    engagement: number,
-    amount: number
-  ): any {
-    const allUsefulTweets = []
-    for (const tweet of tweets) {
-      const usefulTweet = {
-        name: tweet.user.name,
-        relevanceIndex: this.generateRelevanceIndex(tweet, engagement, amount),
-        tweetUrl: this.extractTweetUrl(tweet),
-        text: this.extractText(tweet.full_text)
-      }
-
-      allUsefulTweets.push(usefulTweet)
-    }
-
-    return allUsefulTweets
   }
 }

@@ -28,6 +28,7 @@ provider:
 functions:
   send:
     handler: dist/src/handlers/send.handler
+    timeout: 45
     events:
       - http:
           method: POST
@@ -35,6 +36,7 @@ functions:
           authorizer: ${self:custom.Authorizer.url}
   sendAll:
     handler: dist/src/handlers/sendAll.handler
+    timeout: 45
     events:
       - schedule: rate(4320 minutes)
 

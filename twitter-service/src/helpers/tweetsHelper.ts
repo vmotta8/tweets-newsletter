@@ -29,7 +29,7 @@ export const TweetsHelper = {
       const tweetDate = parseInt(tweet.created_at.split(' ')[2])
 
       if (
-        tweetDate === date
+        tweetDate >= date
       ) {
         return tweet
       }
@@ -83,7 +83,8 @@ export const TweetsHelper = {
         name: tweet.user.name,
         relevanceIndex: this.generateRelevanceIndex(tweet, engagement),
         tweetUrl: this.extractTweetUrl(tweet),
-        text: this.extractText(tweet.full_text)
+        text: this.extractText(tweet.full_text),
+        date: tweet.created_at.split('+')[0]
       }
 
       allUsefulTweets.push(usefulTweet)

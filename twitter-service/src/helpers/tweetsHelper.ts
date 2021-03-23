@@ -24,12 +24,14 @@ export const TweetsHelper = {
   },
 
   dateFilter (tweets: any): any {
+    const month = tweets[0].created_at.split(' ')[1]
     tweets = tweets.filter((tweet: any): any => {
       const date = new Date().getDate() - 3
       const tweetDate = parseInt(tweet.created_at.split(' ')[2])
+      const tweetMonth = tweet.created_at.split(' ')[1]
 
       if (
-        tweetDate >= date
+        tweetDate >= date && month === tweetMonth
       ) {
         return tweet
       }

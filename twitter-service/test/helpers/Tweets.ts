@@ -2,97 +2,7 @@ export const tweets = [
   {
     contributors: null,
     coordinates: null,
-    created_at: 'Mon Mar 22 13:35:18 +0000 2021',
-    display_text_range: [
-      0,
-      18
-    ],
-    entities: {
-      hashtags: [
-
-      ],
-      symbols: [
-
-      ],
-      urls: [
-
-      ],
-      user_mentions: [
-
-      ]
-    },
-    favorite_count: 0,
-    favorited: false,
-    full_text: 'RT @ isso não pode',
-    geo: null,
-    id: 1373991679250870300,
-    id_str: '1373991679250870273',
-    in_reply_to_screen_name: null,
-    in_reply_to_status_id: null,
-    in_reply_to_status_id_str: null,
-    in_reply_to_user_id: null,
-    in_reply_to_user_id_str: null,
-    is_quote_status: false,
-    lang: 'pt',
-    place: null,
-    retweet_count: 0,
-    retweeted: false,
-    source: '<a href="https://mobile.twitter.com" rel="nofollow">Twitter Web App</a>',
-    truncated: false,
-    user: {
-      contributors_enabled: false,
-      created_at: 'Sun Jun 07 13:28:16 +0000 2020',
-      default_profile: true,
-      default_profile_image: true,
-      description: '',
-      entities: {
-        description: {
-          urls: [
-
-          ]
-        }
-      },
-      favourites_count: 0,
-      follow_request_sent: false,
-      followers_count: 0,
-      following: false,
-      friends_count: 4,
-      geo_enabled: false,
-      has_extended_profile: false,
-      id: 1269622132541194200,
-      id_str: '1269622132541194243',
-      is_translation_enabled: false,
-      is_translator: false,
-      lang: null,
-      listed_count: 0,
-      location: '',
-      name: 'vmotta8',
-      notifications: false,
-      profile_background_color: 'F5F8FA',
-      profile_background_image_url: null,
-      profile_background_image_url_https: null,
-      profile_background_tile: false,
-      profile_image_url: 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png',
-      profile_image_url_https: 'https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png',
-      profile_link_color: '1DA1F2',
-      profile_sidebar_border_color: 'C0DEED',
-      profile_sidebar_fill_color: 'DDEEF6',
-      profile_text_color: '333333',
-      profile_use_background_image: true,
-      protected: true,
-      screen_name: 'vmotta8',
-      statuses_count: 3,
-      time_zone: null,
-      translator_type: 'none',
-      url: null,
-      utc_offset: null,
-      verified: false
-    }
-  },
-  {
-    contributors: null,
-    coordinates: null,
-    created_at: 'Mon Mar 22 13:33:16 +0000 2021',
+    created_at: 'Mon Mar 10 13:33:16 +0000 2021',
     display_text_range: [
       0,
       28
@@ -269,7 +179,7 @@ export const tweets = [
   {
     contributors: null,
     coordinates: null,
-    created_at: 'Sat Mar 20 17:10:40 +0000 2021',
+    created_at: 'Sat Mar 10 17:10:40 +0000 2021',
     display_text_range: [
       0,
       91
@@ -377,7 +287,7 @@ export const tweets = [
   {
     contributors: null,
     coordinates: null,
-    created_at: 'Mon Mar 22 12:51:10 +0000 2021',
+    created_at: 'Mon Mar 10 12:51:10 +0000 2021',
     display_text_range: [
       0,
       211
@@ -485,6 +395,96 @@ export const tweets = [
       url: 'https://t.co/Dj9tIapXeo',
       utc_offset: null,
       verified: true
+    }
+  },
+  {
+    contributors: null,
+    coordinates: null,
+    created_at: 'Mon Feb 10 13:35:18 +0000 2021',
+    display_text_range: [
+      0,
+      18
+    ],
+    entities: {
+      hashtags: [
+
+      ],
+      symbols: [
+
+      ],
+      urls: [
+
+      ],
+      user_mentions: [
+
+      ]
+    },
+    favorite_count: 0,
+    favorited: false,
+    full_text: 'RT @ isso não pode',
+    geo: null,
+    id: 1373991679250870300,
+    id_str: '1373991679250870273',
+    in_reply_to_screen_name: null,
+    in_reply_to_status_id: null,
+    in_reply_to_status_id_str: null,
+    in_reply_to_user_id: null,
+    in_reply_to_user_id_str: null,
+    is_quote_status: false,
+    lang: 'pt',
+    place: null,
+    retweet_count: 0,
+    retweeted: false,
+    source: '<a href="https://mobile.twitter.com" rel="nofollow">Twitter Web App</a>',
+    truncated: false,
+    user: {
+      contributors_enabled: false,
+      created_at: 'Sun Jun 07 13:28:16 +0000 2020',
+      default_profile: true,
+      default_profile_image: true,
+      description: '',
+      entities: {
+        description: {
+          urls: [
+
+          ]
+        }
+      },
+      favourites_count: 0,
+      follow_request_sent: false,
+      followers_count: 0,
+      following: false,
+      friends_count: 4,
+      geo_enabled: false,
+      has_extended_profile: false,
+      id: 1269622132541194200,
+      id_str: '1269622132541194243',
+      is_translation_enabled: false,
+      is_translator: false,
+      lang: null,
+      listed_count: 0,
+      location: '',
+      name: 'vmotta8',
+      notifications: false,
+      profile_background_color: 'F5F8FA',
+      profile_background_image_url: null,
+      profile_background_image_url_https: null,
+      profile_background_tile: false,
+      profile_image_url: 'http://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png',
+      profile_image_url_https: 'https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png',
+      profile_link_color: '1DA1F2',
+      profile_sidebar_border_color: 'C0DEED',
+      profile_sidebar_fill_color: 'DDEEF6',
+      profile_text_color: '333333',
+      profile_use_background_image: true,
+      protected: true,
+      screen_name: 'vmotta8',
+      statuses_count: 3,
+      time_zone: null,
+      translator_type: 'none',
+      url: null,
+      utc_offset: null,
+      verified: false
     }
   }
 ]

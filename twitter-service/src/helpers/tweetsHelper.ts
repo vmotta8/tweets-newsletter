@@ -25,7 +25,7 @@ export const TweetsHelper = {
 
   dateFilter (tweets: any): any {
     tweets = tweets.filter((tweet: any): any => {
-      const date = new Date().getDate() - 1
+      const date = new Date().getDate() - 3
       const tweetDate = parseInt(tweet.created_at.split(' ')[2])
 
       if (

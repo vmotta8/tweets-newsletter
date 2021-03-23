@@ -36,7 +36,7 @@ functions:
   sendAll:
     handler: dist/src/handlers/sendAll.handler
     events:
-      - schedule: rate(2880 minutes)
+      - schedule: rate(4320 minutes)
 
 custom:
   Authorizer:

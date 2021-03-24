@@ -17,12 +17,15 @@ export class SendService {
       try {
         const tweets = await TweetsHelper.collectTweets(user)
         allTweets = allTweets.concat(tweets)
-        allTweets = TweetsHelper.sortTweets(allTweets)
+        allTweets = TweetsHelper.sortTweets(allTweets, 15)
       } catch (err) {
         console.log(err)
         throw new createError.Unauthorized('Unauthorized, check twitter credentials.')
       }
     }
+
+    allTweets = TweetsHelper.removeRepeated(allTweets)
+    allTweets = TweetsHelper.sortTweets(allTweets, 10)
 
     const html = HtmlHelper.generate(allTweets, data.email)
 

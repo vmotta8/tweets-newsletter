@@ -38,7 +38,7 @@ functions:
     handler: dist/src/handlers/sendAll.handler
     timeout: 45
     events:
-      - schedule: rate(4320 minutes)
+      - schedule: rate(4321 minutes)
 
 custom:
   Authorizer:

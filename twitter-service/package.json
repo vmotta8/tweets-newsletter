@@ -44,6 +44,8 @@
     "aws-sdk": "^2.639.0",
     "axios": "^0.21.1",
     "http-errors": "^1.8.0",
+    "keyword-extractor": "^0.0.19",
+    "string-similarity": "^4.0.4",
     "twitter": "^1.7.1"
   }
 }

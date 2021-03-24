@@ -109,7 +109,7 @@ export const tweets = [
     },
     favorite_count: 0,
     favorited: false,
-    full_text: 'Olha https://t.co/7PrzbSeN09 https://t.co/qomJh8yBzp',
+    full_text: 'Microsoft is reportedly in the running to buy Discord for more than $10 billion',
     geo: null,
     id: 1373991165956137000,
     id_str: '1373991165956136965',
@@ -316,7 +316,7 @@ export const tweets = [
     },
     favorite_count: 76,
     favorited: false,
-    full_text: 'If we don’t deal with the implications of the coronavirus as a zoonotic infection, one that leaps between species, Covid is likely to be a threat to the human world for quite a long time. https://t.co/eqM8ZmHN4R',
+    full_text: 'Microsoft in talks with Discord over $10 billion-plus acquisition: report',
     geo: null,
     id: 1373980574151540700,
     id_str: '1373980574151540740',
@@ -488,3 +488,5 @@ export const tweets = [
     }
   }
 ]
+
+export const formattedTweets = [{ date: 'Mon Mar 10 13:33:16 ', name: 'vmotta8', relevanceIndex: 0, text: 'Android apps like Gmail are crashing and WebView may be to blame', tweetUrl: 'https://twitter.com/vmotta8/status/1373991165956136965' }, { date: 'Sat Mar 10 17:10:40 ', name: 'vmotta8', relevanceIndex: 0, text: 'Olhem essas notícias ... interessantes...', tweetUrl: 'https://twitter.com/vmotta8/status/1373321102265552898' }, { date: 'Mon Mar 10 12:51:10 ', name: 'WIRED', relevanceIndex: 4.12, text: 'PSA: If your Android apps keep crashing, uninstall Android System WebView by @technacity', tweetUrl: 'https://twitter.com/WIRED/status/1373980574151540740' }, { date: 'Mon Feb 10 13:35:18 ', name: 'vmotta8', relevanceIndex: 0, text: 'RT @ isso não pode', tweetUrl: 'https://twitter.com/vmotta8/status/1373991679250870273' }]

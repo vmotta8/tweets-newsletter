@@ -1,5 +1,7 @@
 /* eslint-disable array-callback-return */
 import Twitter from 'twitter'
+const keywordExtractor = require('keyword-extractor')
+const stringSimilarity = require('string-similarity')
 
 const client = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY || '',
@@ -113,12 +115,32 @@ export const TweetsHelper = {
     return tweets
   },
 
-  sortTweets (formatedTweets: any): any {
+  sortTweets (formatedTweets: any, number: number): any {
     formatedTweets.sort(
       (a: any, b: any) => parseFloat(b.relevanceIndex) - parseFloat(a.relevanceIndex)
     )
-    formatedTweets = formatedTweets.slice(0, 10)
+    formatedTweets = formatedTweets.slice(0, number)
 
     return formatedTweets
+  },
+
+  removeRepeated (tweets: any): any {
+    const result = tweets.reduce((unique: any, o: any) => {
+      if (!unique.some((obj: any) => {
+        let t1 = keywordExtractor.extract(obj.text)
+        t1 = t1.join(' ')
+        let t2 = keywordExtractor.extract(o.text)
+        t2 = t2.join(' ')
+        const similarity = stringSimilarity.compareTwoStrings(t1, t2)
+        if (similarity >= 0.40) {
+          return true
+        }
+        return false
+      })) {
+        unique.push(o)
+      }
+      return unique
+    }, [])
+    return result
   }
 }

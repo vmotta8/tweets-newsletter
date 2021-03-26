@@ -26,7 +26,7 @@ export class SendService {
           tweets = await TweetsHelper.collectTweets(user)
 
           const redisTweets = TweetsHelper.sortTweets(tweets, 15)
-          await this.cache.set(`users:${user}`, JSON.stringify(redisTweets), 100)
+          await this.cache.set(`users:${user}`, JSON.stringify(redisTweets), 3600)
         }
 
         allTweets = allTweets.concat(tweets)

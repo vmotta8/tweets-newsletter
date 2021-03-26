@@ -11,6 +11,7 @@ Program to send relevant tweets by email. Program made for those who like to fol
   - Simple Email Service
   - Simple Queue Service
   - EventBridge
+  - Redis
 
 ### How to use
   - Access https://vmotta8-newsletter.netlify.app/

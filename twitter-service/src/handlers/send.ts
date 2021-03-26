@@ -3,9 +3,11 @@ import { commonMiddleware } from '../lib/middlewares/commonMiddleware'
 import { SendService } from './services/sendService'
 import { SESMailProvider } from '../lib/providers/implementations/SESMailProvider'
 import { users } from '../helpers/TwitterUsers'
+import { RedisProvider } from '../lib/providers/implementations/RedisProvider'
 
 const service = new SendService(
-  new SESMailProvider()
+  new SESMailProvider(),
+  new RedisProvider()
 )
 
 async function send (event: any, context: any): Promise<APIGatewayProxyResult> {

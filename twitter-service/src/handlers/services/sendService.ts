@@ -2,20 +2,33 @@
 import { ISendDTO } from '../dtos/ISendDTO'
 import { TweetsHelper } from '../../helpers/tweetsHelper'
 import { IMailProvider } from '../../lib/providers/IMailProvider'
+import { ICacheProvider } from '../../lib/providers/ICacheProvider'
 import { HtmlHelper } from '../../helpers/htmlHelper'
 import createError from 'http-errors'
 
 export class SendService {
   constructor (
-    private mail: IMailProvider
+    private mail: IMailProvider,
+    private cache: ICacheProvider
   ) {}
 
   async execute (data: ISendDTO, users: string[]) {
     let allTweets: any[] = []
 
+    this.cache.connect()
     for (const user of users) {
+      let tweets: any
       try {
-        const tweets = await TweetsHelper.collectTweets(user)
+        const cacheEntry = await this.cache.get(`users:${user}`)
+        if (cacheEntry) {
+          tweets = JSON.parse(cacheEntry)
+        } else {
+          tweets = await TweetsHelper.collectTweets(user)
+
+          const redisTweets = TweetsHelper.sortTweets(tweets, 15)
+          await this.cache.set(`users:${user}`, JSON.stringify(redisTweets), 100)
+        }
+
         allTweets = allTweets.concat(tweets)
         allTweets = TweetsHelper.sortTweets(allTweets, 15)
       } catch (err) {
@@ -23,6 +36,7 @@ export class SendService {
         throw new createError.Unauthorized('Unauthorized, check twitter credentials.')
       }
     }
+    this.cache.disconnect()
 
     allTweets = TweetsHelper.removeRepeated(allTweets)
     allTweets = TweetsHelper.sortTweets(allTweets, 10)

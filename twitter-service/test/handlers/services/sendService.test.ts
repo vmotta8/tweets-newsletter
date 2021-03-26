@@ -1,8 +1,10 @@
 import { SendService } from '../../../src/handlers/services/sendService'
 import { SESMailProviderInMemory } from '../../lib/providers/SESMailProviderInMemory'
+import { RedisProviderInMemory } from '../../lib/providers/RedisProviderInMemory'
 
 const service = new SendService(
-  new SESMailProviderInMemory()
+  new SESMailProviderInMemory(),
+  new RedisProviderInMemory()
 )
 
 describe('send service', () => {

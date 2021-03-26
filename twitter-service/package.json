@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.72",
+    "@types/ioredis": "^4.22.1",
     "@types/jest": "^25.2.1",
     "@types/node": "^14.14.35",
     "@types/twitter": "^1.7.0",
@@ -44,6 +45,7 @@
     "aws-sdk": "^2.639.0",
     "axios": "^0.21.1",
     "http-errors": "^1.8.0",
+    "ioredis": "^4.24.4",
     "keyword-extractor": "^0.0.19",
     "string-similarity": "^4.0.4",
     "twitter": "^1.7.1"

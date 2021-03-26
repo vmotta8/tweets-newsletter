@@ -22,6 +22,9 @@ provider:
     TWITTER_CONSUMER_SECRET: ${self:custom.Twitter.consumerSecret}
     TWITTER_ACCESS_TOKEN_KEY: ${self:custom.Twitter.tokenKey}
     TWITTER_ACCESS_TOKEN_SECRET: ${self:custom.Twitter.tokenSecret}
+    REDIS_PORT: ${self:custom.Redis.port}
+    REDIS_HOST: ${self:custom.Redis.host}
+    REDIS_PASSWORD: ${self:custom.Redis.password}
   iamRoleStatements:
     - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
       
@@ -50,6 +53,10 @@ custom:
     consumerSecret: ${file(env.yml):Twitter.consumerSecret}
     tokenKey: ${file(env.yml):Twitter.tokenKey}
     tokenSecret: ${file(env.yml):Twitter.tokenSecret}
+  Redis:
+    port: ${file(env.yml):Redis.port}
+    host: ${file(env.yml):Redis.host}
+    password: ${file(env.yml):Redis.password}
   Auth:
     url: ${file(env.yml):Auth.url}
     id: ${file(env.yml):Auth.id}

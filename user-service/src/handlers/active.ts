@@ -7,7 +7,7 @@ const service = new ActiveService(
   new DynamoRepository()
 )
 
-async function unsubscribe (event: any, context: any): Promise<APIGatewayProxyResult> {
+async function active (event: any, context: any): Promise<APIGatewayProxyResult> {
   const response = await service.execute()
   return {
     statusCode: 200,
@@ -15,4 +15,4 @@ async function unsubscribe (event: any, context: any): Promise<APIGatewayProxyRe
   }
 }
 
-export const handler = commonMiddleware(unsubscribe)
+export const handler = commonMiddleware(active)

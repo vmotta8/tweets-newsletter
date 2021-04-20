@@ -1,9 +1,7 @@
 import { SubscribeService } from '../../../src/handlers/services/subscribeService'
-import { SESMailProviderInMemory } from '../../lib/providers/SESMailProviderInMemory'
 import { DynamoRepositoryInMemory } from '../../lib/repositories/DynamoRepositoryInMemory'
 
 const service = new SubscribeService(
-  new SESMailProviderInMemory(),
   new DynamoRepositoryInMemory()
 )
 

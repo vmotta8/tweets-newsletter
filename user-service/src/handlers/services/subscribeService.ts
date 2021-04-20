@@ -1,35 +1,11 @@
-import { IMailProvider } from '../../lib/providers/IMailProvider'
 import { User } from '../../entities/User'
 import { ISubscribeDTO } from './dtos/ISubscribeDTO'
-// import { generateWelcomeTemplate } from '../../lib/providers/templates/welcome'
 import { IRepository } from '../../lib/repositories/IRepository'
-import axios from 'axios'
 import createError from 'http-errors'
-import { tokenHelper } from '../../helpers/tokenHelper'
-
-async function sendTweets (email: string): Promise<void> {
-  try {
-    const sendTweetsUrl = process.env.SEND_TWEETS_URL || ''
-    const data = await tokenHelper.generate()
-
-    const headers = {
-      Authorization: `Bearer ${data.id_token}`
-    }
-
-    await axios.post(`${sendTweetsUrl}/${email}`,
-      {},
-      {
-        headers: headers
-      })
-  } catch (err) {
-    console.log(err)
-    throw new createError.Unauthorized('Error on sending tweets.')
-  }
-}
+import { sendTweets } from '../../helpers/sendTweets'
 
 export class SubscribeService {
   constructor (
-    private mail: IMailProvider,
     private repository: IRepository
   ) {}
 
@@ -43,17 +19,7 @@ export class SubscribeService {
 
         this.repository.save(newUser)
 
-        // const template = generateWelcomeTemplate(newUser.email)
-        // const message = {
-        //   queueURL: process.env.MAIL_QUEUE_URL || '',
-        //   subject: template.subject,
-        //   recipient: newUser.email,
-        //   body: template.html
-        // }
-
-        // this.mail.sendMessage(message)
-
-        sendTweets(data.email)
+        sendTweets.send(data.email)
 
         return { message: 'You have been subscribed. Be welcome!!' }
       } catch (err) {

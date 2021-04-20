@@ -19,6 +19,8 @@ provider:
     AUTH_ID: ${self:custom.Auth.id}
     AUTH_USERNAME: ${self:custom.Auth.username}
     AUTH_PASSWORD: ${self:custom.Auth.password}
+    COGNITO_URL: ${self:custom.Cognito.url}
+    COGNITO_REFRESH_TOKEN: ${self:custom.Cognito.refreshToken}
   iamRoleStatements:
     - ${file(resources/UsersTableIAM.yml):UsersTableIAM}
     - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
@@ -46,9 +48,14 @@ functions:
       - http:
           method: GET
           path: /active
-          authorizer: ${self:custom.Authorizer.url}
+          authorizer:
+            arn: ${self:custom.Cognito.arn}
 
 custom:
+  Cognito:
+    arn: ${file(env.yml):Cognito.arn}
+    url: ${file(env.yml):Cognito.url}
+    refreshToken: ${file(env.yml):Cognito.refreshToken}
   Authorizer:
     url: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
   Auth:

@@ -3,7 +3,7 @@ import qs from 'querystring'
 import createError from 'http-errors'
 
 export const tokenHelper = {
-  async generate (): Promise<any | false> {
+  async generateauth0 (): Promise<any | false> {
     const url = process.env.AUTH_URL
     const id = process.env.AUTH_ID
     const username = process.env.AUTH_USERNAME
@@ -35,7 +35,7 @@ export const tokenHelper = {
     return response.data
   },
 
-  async generateCognito(): Promise<any> {
+  async generate(): Promise<any> {
     const url = `${process.env.COGNITO_URL}${process.env.COGNITO_REFRESH_TOKEN}`
     
     const response = await axios.post(url, {}, {
@@ -44,7 +44,6 @@ export const tokenHelper = {
       }
     })
 
-    return response.data.id_token
-    // return url
+    return response.data
   }
 }

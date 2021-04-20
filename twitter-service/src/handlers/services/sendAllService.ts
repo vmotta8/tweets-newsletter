@@ -3,29 +3,7 @@ import { TweetsHelper } from '../../helpers/tweetsHelper'
 import { IMailProvider } from '../../lib/providers/IMailProvider'
 import { HtmlHelper } from '../../helpers/htmlHelper'
 import createError from 'http-errors'
-import axios from 'axios'
-import { tokenHelper } from '../../helpers/tokenHelper'
-
-async function getUsers (): Promise<any> {
-  try {
-    const getUsersUrl = process.env.GET_USERS_URL || ''
-    const data = await tokenHelper.generate()
-
-    const headers = {
-      Authorization: `Bearer ${data.id_token}`
-    }
-
-    const response = await axios.get(getUsersUrl,
-      {
-        headers: headers
-      })
-
-    return response.data
-  } catch (err) {
-    console.log(err)
-    throw new createError.Unauthorized('Error on getting users.')
-  }
-}
+import { getUsers } from '../../helpers/getUsers'
 
 export class SendAllService {
   constructor (
@@ -34,7 +12,7 @@ export class SendAllService {
 
   async execute (users: string[]): Promise<any> {
     let allTweets: any[] = []
-    const subscribers = await getUsers()
+    const subscribers = await getUsers.get()
 
     for (const user of users) {
       try {

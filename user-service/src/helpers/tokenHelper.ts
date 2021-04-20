@@ -33,5 +33,18 @@ export const tokenHelper = {
       })
 
     return response.data
+  },
+
+  async generateCognito(): Promise<any> {
+    const url = `${process.env.COGNITO_URL}${process.env.COGNITO_REFRESH_TOKEN}`
+    
+    const response = await axios.post(url, {}, {
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    })
+
+    return response.data.id_token
+    // return url
   }
 }

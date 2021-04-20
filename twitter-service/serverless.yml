@@ -25,6 +25,8 @@ provider:
     REDIS_PORT: ${self:custom.Redis.port}
     REDIS_HOST: ${self:custom.Redis.host}
     REDIS_PASSWORD: ${self:custom.Redis.password}
+    COGNITO_URL: ${self:custom.Cognito.url}
+    COGNITO_REFRESH_TOKEN: ${self:custom.Cognito.refreshToken}
   iamRoleStatements:
     - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
       
@@ -36,7 +38,8 @@ functions:
       - http:
           method: POST
           path: /send/{email}
-          authorizer: ${self:custom.Authorizer.url}
+          authorizer:
+            arn: ${self:custom.Cognito.arn}
   sendAll:
     handler: dist/src/handlers/sendAll.handler
     timeout: 45
@@ -44,6 +47,10 @@ functions:
       - schedule: rate(4321 minutes)
 
 custom:
+  Cognito:
+    arn: ${file(env.yml):Cognito.arn}
+    url: ${file(env.yml):Cognito.url}
+    refreshToken: ${file(env.yml):Cognito.refreshToken}
   Authorizer:
     url: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
   Users:

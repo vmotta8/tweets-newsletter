@@ -14,10 +14,6 @@ provider:
   environment:
     MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
     GET_USERS_URL: ${self:custom.Users.url}
-    AUTH_URL: ${self:custom.Auth.url}
-    AUTH_ID: ${self:custom.Auth.id}
-    AUTH_USERNAME: ${self:custom.Auth.username}
-    AUTH_PASSWORD: ${self:custom.Auth.password}
     TWITTER_CONSUMER_KEY: ${self:custom.Twitter.consumerKey}
     TWITTER_CONSUMER_SECRET: ${self:custom.Twitter.consumerSecret}
     TWITTER_ACCESS_TOKEN_KEY: ${self:custom.Twitter.tokenKey}
@@ -25,6 +21,8 @@ provider:
     REDIS_PORT: ${self:custom.Redis.port}
     REDIS_HOST: ${self:custom.Redis.host}
     REDIS_PASSWORD: ${self:custom.Redis.password}
+    COGNITO_URL: ${self:custom.Cognito.url}
+    COGNITO_REFRESH_TOKEN: ${self:custom.Cognito.refreshToken}
   iamRoleStatements:
     - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
       
@@ -36,16 +34,19 @@ functions:
       - http:
           method: POST
           path: /send/{email}
-          authorizer: ${self:custom.Authorizer.url}
+          authorizer:
+            arn: ${self:custom.Cognito.arn}
   sendAll:
     handler: dist/src/handlers/sendAll.handler
     timeout: 45
     events:
-      - schedule: rate(4321 minutes)
+      - schedule: rate(4320 minutes)
 
 custom:
-  Authorizer:
-    url: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
+  Cognito:
+    arn: ${file(env.yml):Cognito.arn}
+    url: ${file(env.yml):Cognito.url}
+    refreshToken: ${file(env.yml):Cognito.refreshToken}
   Users:
     url: ${file(env.yml):Users.url}
   Twitter:
@@ -57,11 +58,6 @@ custom:
     port: ${file(env.yml):Redis.port}
     host: ${file(env.yml):Redis.host}
     password: ${file(env.yml):Redis.password}
-  Auth:
-    url: ${file(env.yml):Auth.url}
-    id: ${file(env.yml):Auth.id}
-    username: ${file(env.yml):Auth.username}
-    password: ${file(env.yml):Auth.password}
   MailQueue:
     arn: ${cf:mail-service-${self:provider.stage}.MailQueueArn}
     url: ${cf:mail-service-${self:provider.stage}.MailQueueUrl}

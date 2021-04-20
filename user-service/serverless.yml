@@ -15,10 +15,8 @@ provider:
     USERS_TABLE_NAME: ${self:custom.UsersTable.name}
     MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
     SEND_TWEETS_URL: ${self:custom.SendTweets.url}
-    AUTH_URL: ${self:custom.Auth.url}
-    AUTH_ID: ${self:custom.Auth.id}
-    AUTH_USERNAME: ${self:custom.Auth.username}
-    AUTH_PASSWORD: ${self:custom.Auth.password}
+    COGNITO_URL: ${self:custom.Cognito.url}
+    COGNITO_REFRESH_TOKEN: ${self:custom.Cognito.refreshToken}
   iamRoleStatements:
     - ${file(resources/UsersTableIAM.yml):UsersTableIAM}
     - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
@@ -46,16 +44,14 @@ functions:
       - http:
           method: GET
           path: /active
-          authorizer: ${self:custom.Authorizer.url}
+          authorizer:
+            arn: ${self:custom.Cognito.arn}
 
 custom:
-  Authorizer:
-    url: arn:aws:lambda:#{AWS::Region}:#{AWS::AccountId}:function:auth-service-${self:provider.stage}-auth
-  Auth:
-    url: ${file(env.yml):Auth.url}
-    id: ${file(env.yml):Auth.id}
-    username: ${file(env.yml):Auth.username}
-    password: ${file(env.yml):Auth.password}
+  Cognito:
+    arn: ${file(env.yml):Cognito.arn}
+    url: ${file(env.yml):Cognito.url}
+    refreshToken: ${file(env.yml):Cognito.refreshToken}
   SendTweets:
     url: ${file(env.yml):SendTweets.url}
   UsersTable:

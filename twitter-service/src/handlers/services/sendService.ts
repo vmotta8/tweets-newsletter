@@ -33,7 +33,7 @@ export class SendService {
         allTweets = TweetsHelper.sortTweets(allTweets, 15)
       } catch (err) {
         console.log(err)
-        throw new createError.Unauthorized('Unauthorized, check twitter credentials.')
+        throw new createError.Unauthorized(err)
       }
     }
     this.cache.disconnect()

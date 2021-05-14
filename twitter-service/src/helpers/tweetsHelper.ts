@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 import Twitter from 'twitter'
+import createError from 'http-errors'
 const keywordExtractor = require('keyword-extractor')
 const stringSimilarity = require('string-similarity')
 
@@ -105,6 +106,10 @@ export const TweetsHelper = {
       include_entities: 1,
       include_extended_entities: 1
     })
+
+    if (!tweets) {
+      throw new createError.BadRequest('Tweets not found.')
+    }
 
     tweets = this.rtFilter(tweets)
     const engagement = this.engagementAverage(tweets)

@@ -7,7 +7,7 @@ const service = new SendAllService(
 
 describe('send all service', () => {
   it('should return message', async () => {
-    const response = await service.execute(['vmotta8'])
+    const response = await service.execute(['wired'])
     expect(response.message).toEqual('All news was sent successfully!')
   })
 })

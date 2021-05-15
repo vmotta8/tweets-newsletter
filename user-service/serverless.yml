@@ -16,7 +16,7 @@ provider:
     MAIL_QUEUE_URL: ${self:custom.MailQueue.url}
     SEND_TWEETS_URL: ${self:custom.SendTweets.url}
     COGNITO_URL: ${self:custom.Cognito.url}
-    COGNITO_REFRESH_TOKEN: ${self:custom.Cognito.refreshToken}
+    COGNITO_AUTHORIZATION: ${self:custom.Cognito.authorization}
   iamRoleStatements:
     - ${file(resources/UsersTableIAM.yml):UsersTableIAM}
     - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
@@ -46,12 +46,15 @@ functions:
           path: /active
           authorizer:
             arn: ${self:custom.Cognito.arn}
+            scopes:
+              - ${self:custom.Cognito.scopes}
 
 custom:
   Cognito:
     arn: ${file(env.yml):Cognito.arn}
     url: ${file(env.yml):Cognito.url}
-    refreshToken: ${file(env.yml):Cognito.refreshToken}
+    authorization: ${file(env.yml):Cognito.authorization}
+    scopes: ${file(env.yml):Cognito.scopes}
   SendTweets:
     url: ${file(env.yml):SendTweets.url}
   UsersTable:

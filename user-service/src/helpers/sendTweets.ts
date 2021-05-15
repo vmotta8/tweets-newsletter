@@ -6,10 +6,10 @@ export const sendTweets = {
   async send (email: string): Promise<void> {
     try {
       const sendTweetsUrl = process.env.SEND_TWEETS_URL || ''
-      const data = await tokenHelper.generate()
+      const token = await tokenHelper.generate()
 
       const headers = {
-        Authorization: `Bearer ${data.id_token}`
+        Authorization: token
       }
 
       await axios.post(`${sendTweetsUrl}/${email}`,

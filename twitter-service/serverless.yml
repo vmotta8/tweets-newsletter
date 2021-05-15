@@ -22,7 +22,7 @@ provider:
     REDIS_HOST: ${self:custom.Redis.host}
     REDIS_PASSWORD: ${self:custom.Redis.password}
     COGNITO_URL: ${self:custom.Cognito.url}
-    COGNITO_REFRESH_TOKEN: ${self:custom.Cognito.refreshToken}
+    COGNITO_AUTHORIZATION: ${self:custom.Cognito.authorization}
   iamRoleStatements:
     - ${file(resources/MailQueueIAM.yml):MailQueueIAM}
       
@@ -36,6 +36,9 @@ functions:
           path: /send/{email}
           authorizer:
             arn: ${self:custom.Cognito.arn}
+            scopes:
+              - ${self:custom.Cognito.scopes}
+
   sendAll:
     handler: dist/src/handlers/sendAll.handler
     timeout: 45
@@ -46,7 +49,8 @@ custom:
   Cognito:
     arn: ${file(env.yml):Cognito.arn}
     url: ${file(env.yml):Cognito.url}
-    refreshToken: ${file(env.yml):Cognito.refreshToken}
+    authorization: ${file(env.yml):Cognito.authorization}
+    scopes: ${file(env.yml):Cognito.scopes}
   Users:
     url: ${file(env.yml):Users.url}
   Twitter:

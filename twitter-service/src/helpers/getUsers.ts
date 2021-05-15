@@ -6,10 +6,10 @@ export const getUsers = {
   async get (): Promise<any> {
     try {
       const getUsersUrl = process.env.GET_USERS_URL || ''
-      const data = await tokenHelper.generate()
+      const token = await tokenHelper.generate()
 
       const headers = {
-        Authorization: `Bearer ${data.id_token}`
+        Authorization: token
       }
 
       const response = await axios.get(getUsersUrl,

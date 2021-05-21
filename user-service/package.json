@@ -41,7 +41,7 @@
     "@middy/http-error-handler": "^1.5.2",
     "@middy/http-event-normalizer": "^1.5.2",
     "@middy/http-json-body-parser": "^1.5.2",
-    "@vmotta8/validator": "^1.0.1",
+    "@vmotta8/validator": "^1.10.0",
     "aws-sdk": "^2.639.0",
     "axios": "^0.21.1",
     "http-errors": "^1.8.0",

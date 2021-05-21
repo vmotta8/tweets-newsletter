@@ -1556,10 +1556,10 @@
     "@typescript-eslint/types" "4.24.0"
     eslint-visitor-keys "^2.0.0"
 
-"@vmotta8/validator@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@vmotta8/validator/-/validator-1.0.1.tgz#e50a9eb36c17a27e15d2464be1cda7b1875b376e"
-  integrity sha512-oII1Y44S0n28OFqENT0mDcERmcPkAprfuI91VaqTxvcVOgmSDJ4cqlbAmRQkDqif4xwsfzHmJhs/TW5eSCpBUg==
+"@vmotta8/validator@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@vmotta8/validator/-/validator-1.10.0.tgz#ca782daee57356bb1eadebd9d26921a851e76809"
+  integrity sha512-/uWxxmCsnLDa2C3ysFTT4gkhOL+2dn3Sx/YnWL3hJTArsT+jCyfsxc26s7cIEkVK5AuLMFKgMaE/W0GkQr1f9Q==
   dependencies:
     http-errors "^1.8.0"
 

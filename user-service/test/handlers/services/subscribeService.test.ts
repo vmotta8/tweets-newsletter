@@ -33,4 +33,16 @@ describe('subscribe service', () => {
       expect(error.message).toBe('You are already subscribed, enjoy the news !!')
     }
   })
+
+  it('should return an error if the email is invalid', async () => {
+    const data = {
+      email: 'email @email.com'
+    }
+    try {
+      await service.execute(data)
+      expect(true).toBe(false)
+    } catch (error) {
+      expect(error.message).toBe('Invalid characters in email.')
+    }
+  })
 })

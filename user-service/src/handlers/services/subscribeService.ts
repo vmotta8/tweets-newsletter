@@ -1,8 +1,9 @@
+import createError from 'http-errors'
 import { User } from '../../entities/User'
 import { ISubscribeDTO } from './dtos/ISubscribeDTO'
 import { IRepository } from '../../lib/repositories/IRepository'
-import createError from 'http-errors'
 import { sendTweets } from '../../helpers/sendTweets'
+import { subscribeValidator } from '../../validators/subscribeValidator'
 
 export class SubscribeService {
   constructor (
@@ -10,7 +11,9 @@ export class SubscribeService {
   ) {}
 
   async execute (data: ISubscribeDTO): Promise<any> {
-    data.email = (data.email).toLowerCase()
+    data = subscribeValidator(data)
+    console.log(data)
+
     const user = await this.repository.findByEmail(data.email)
 
     if (!user) {

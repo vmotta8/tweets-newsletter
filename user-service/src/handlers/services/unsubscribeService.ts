@@ -1,5 +1,6 @@
 import { IRepository } from '../../lib/repositories/IRepository'
 import { IUnsubscribeDTO } from './dtos/IUnsubscribeDTO'
+import { unsubscribeValidator } from '../../validators/unsubscribeValidator'
 import createError from 'http-errors'
 
 export class UnsubscribeService {
@@ -8,7 +9,9 @@ export class UnsubscribeService {
   ) {}
 
   async execute (data: IUnsubscribeDTO): Promise<any> {
-    data.email = (data.email).toLowerCase()
+    data = unsubscribeValidator(data)
+    console.log(data)
+
     const user = await this.repository.findByEmail(data.email)
     if (!user) {
       throw new createError.BadRequest('Email not found.')

@@ -1,4 +1,5 @@
 # Tweets Newsletter
+## (deprecated)
 
 Program to send relevant tweets by email. Program made for those who like to follow news on twitter but do not have time to read them all.
 
